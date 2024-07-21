@@ -3,49 +3,36 @@ class Overworld {
     this.element = config.element;
     this.canvas = this.element.querySelector(".game-canvas");
     this.ctx = this.canvas.getContext("2d");
+    this.map = null;
+  }
+
+  startGameLoop() {
+    const step = () => {
+
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+      // Draw Lower Layer
+      this.map.drawLowerImage(this.ctx);
+
+      // Draw Game Objects
+      Object.values(this.map.gameObjects).forEach(object => {
+        object.x += 0.02;
+        object.sprite.draw(this.ctx);
+      })
+
+      // Draw Uppper Layer
+      this.map.drawUpperImage(this.ctx);
+
+      requestAnimationFrame(() => {
+        step();
+      });
+    };
+
+    step();
   }
 
   init() {
-    const image = new Image();
-    image.onload = () => {
-      this.ctx.drawImage(image, 0, 0);
-    };
-    image.src = "/images/maps/DemoLower.png";
-
-    const x = 5;
-    const y = 6;
-
-    const shadow = new Image();
-    shadow.onload = () => {
-      this.ctx.drawImage(
-        shadow, 
-        0, 
-        0,
-        32,
-        32,
-        x * 16 - 8,
-        y * 16 - 18,
-        32,
-        32
-      );
-    };
-    shadow.src = "/images/characters/shadow.png";
-
-
-    const hero = new Image();
-    hero.onload = () => {
-      this.ctx.drawImage(
-        hero, 
-        0, 
-        0,
-        32,
-        32,
-        x * 16 - 8,
-        y * 16 - 18,
-        32,
-        32
-      );
-    };
-    hero.src = "/images/characters/people/hero.png";
+    this.map = new OverworldMap(window.OverworldMaps.DemoRoom);
+    this.startGameLoop();
   }
 }
