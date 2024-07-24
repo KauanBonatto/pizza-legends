@@ -31,7 +31,6 @@ class DirectionInput {
       const index = this.heldDirection.indexOf(dir);
       if (index > -1) {
         this.heldDirection.splice(index, 1);
-        console.log(this.heldDirection);
       }
     })
   }
