@@ -26,6 +26,14 @@ const utils = {
     return {x, y};
   },
 
+
+  oppositeDirection(diretion) {
+    if (diretion === "left") { return "right"; }
+    if (diretion === "right") { return "left"; }
+    if (diretion === "up") { return "down"; }
+    return "up";
+  },
+
   emitEvent(name, detail) {
     const event = new CustomEvent(name, {
       detail
