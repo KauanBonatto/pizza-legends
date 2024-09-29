@@ -20,8 +20,22 @@ class BattleEvent {
     message.init(this.battle.element);
   }
 
-  stateChange(resolve) {
-    
+  async stateChange(resolve) {
+    const { caster, target, damage } = this.event;
+
+    if (damage) {
+      // Modify the target to have less HP
+      target.update({
+        hp: target.hp - damage
+      });
+
+      target.pizzaElement.classList.add("battle-damage-blink");
+    }
+
+    await utils.wait(600);
+
+    target.pizzaElement.classList.remove("battle-damage-blink");
+    resolve();
   }
 
   submissionMenu(resolve) {
@@ -34,6 +48,11 @@ class BattleEvent {
     });
 
     menu.init(this.battle.element);
+  }
+
+  animation(resolve) {
+    const fn = BattleAnimations[this.event.animation];
+    fn(this.event, resolve);
   }
 
   init(resolve) {
