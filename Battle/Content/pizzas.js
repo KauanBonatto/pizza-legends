@@ -14,6 +14,14 @@ window.Pizzas = {
     icon: "/images/icons/spicy.png",
     actions: ["saucyStatus", "clumsyStatus", "damage1"]
   },
+  "s002": {
+    name: "Bacon Brigade",
+    description: "A salty warrior who fear nothing",
+    type: PizzaTypes.spicy,
+    src: "/images/characters/pizzas/s002.png",
+    icon: "/images/icons/spicy.png",
+    actions: ["damage1", "saucyStatus", "clumsyStatus"]
+  },
   "v001": {
     name: "Call me Kale",
     type: PizzaTypes.veggie,
