@@ -142,7 +142,9 @@ class Battle {
 
           playerState.items = playerState.items.filter(item => {
             return !this.useInstanceIds[item.instanceId];
-          })
+          });
+
+          utils.emitEvent("PlayerStateUpdated");
         }
 
         this.element.remove();

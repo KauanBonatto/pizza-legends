@@ -9,6 +9,7 @@ window.PizzaTypes = {
 window.Pizzas = {
   "s001": {
     name: "Slice Samurai",
+    description: "Pizza desc here",
     type: PizzaTypes.spicy,
     src: "/images/characters/pizzas/s001.png",
     icon: "/images/icons/spicy.png",
@@ -24,6 +25,7 @@ window.Pizzas = {
   },
   "v001": {
     name: "Call me Kale",
+    description: "Pizza desc here",
     type: PizzaTypes.veggie,
     src: "/images/characters/pizzas/v001.png",
     icon: "/images/icons/veggie.png",
@@ -31,6 +33,7 @@ window.Pizzas = {
   },
   "f001": {
     name: "Portobello Express",
+    description: "Pizza desc here",
     type: PizzaTypes.fungi,
     src: "/images/characters/pizzas/f001.png",
     icon: "/images/icons/fungi.png",
