@@ -18,7 +18,7 @@ class Sprite {
     };
 
     // Config animation and Initial state
-    this.animations = config.animation || {
+    this.animations = config.animations || {
       "idle-down": [ [0, 0] ],
       "idle-right": [ [0, 1] ],
       "idle-up": [ [0, 2] ],
@@ -29,7 +29,7 @@ class Sprite {
       "walk-left": [ [1, 3], [0, 3], [3, 3], [0, 3] ],
     };
 
-    this.currentAnimation = "idle-down"; // config.currentAnimation || "idle-down";
+    this.currentAnimation = config.currentAnimation || "idle-down";
     this.currentAnimationFrame = 0;
 
     this.animationFrameLimit = config.animationFrameLimit || 8;
