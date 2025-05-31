@@ -9,6 +9,22 @@ class Overworld {
 
   startGameLoop() {
     const step = () => {
+      // Listen Joystick updates to controll direction
+      this.directionInput.checkJoystick();
+
+      new JoystickPressListener('B', () => {
+        // Is there a person here to talk to?
+        this.map.checkForActionCutscene();
+      });
+
+      new JoystickPressListener('Start', () => {
+        if (!this.map.isCutscenePlaying) {
+          this.map.startCutscene([
+            { type: "pause" }
+          ])
+        }
+      });
+
       // Clear the canvas
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
