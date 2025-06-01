@@ -27,10 +27,10 @@ const utils = {
   },
 
 
-  oppositeDirection(diretion) {
-    if (diretion === "left") { return "right"; }
-    if (diretion === "right") { return "left"; }
-    if (diretion === "up") { return "down"; }
+  oppositeDirection(direction) {
+    if (direction === "left") { return "right"; }
+    if (direction === "right") { return "left"; }
+    if (direction === "up") { return "down"; }
     return "up";
   },
 

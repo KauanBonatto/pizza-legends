@@ -9,13 +9,21 @@
   image-rendering: pixelated;
 }
 
+.Battle.green-kitchen {
+  background-image: url(/images/maps/GreenKitchenBattle.png);
+}
+
+.Battle.dining-room {
+  background-image: url(/images/maps/DiningRoomBattle.png);
+}
+
 .Battle_hero, .Battle_enemy {
   position: absolute;
   transform: scale(2);
   width: 32px;
   height: 32px;
   overflow: hidden;
-  background: url(/images//characters/shadow.png) no-repeat no-repeat;
+  background: url(/images/characters/shadow.png) no-repeat no-repeat;
 }
 
 .Battle_hero img, .Battle_enemy img {
@@ -28,7 +36,7 @@
 }
 
 .Battle_hero img {
-  transform: translateY(-64px);
+  transform: translateY(-64px); /* Nudge hero spritesheet */
 }
 
 .Battle_enemy {
