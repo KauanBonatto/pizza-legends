@@ -5,29 +5,29 @@ class PlayerState {
         pizzaId: "s001",
         hp: 50,
         maxHp: 50,
-        xp: 75,
-        maxXp: 100,
-        level: 1,
-        status: { type: "saucy" }
-      },
-      "p2": {
-        pizzaId: "v001",
-        hp: 50,
-        maxHp: 50,
-        xp: 75,
+        xp: 0,
         maxXp: 100,
         level: 1,
         status: null
       },
-      "p3": {
-        pizzaId: "f001",
-        hp: 50,
-        maxHp: 50,
-        xp: 75,
-        maxXp: 100,
-        level: 1,
-        status: null
-      }
+      // "p2": {
+      //   pizzaId: "v001",
+      //   hp: 50,
+      //   maxHp: 50,
+      //   xp: 75,
+      //   maxXp: 100,
+      //   level: 1,
+      //   status: null
+      // },
+      // "p3": {
+      //   pizzaId: "f001",
+      //   hp: 50,
+      //   maxHp: 50,
+      //   xp: 75,
+      //   maxXp: 100,
+      //   level: 1,
+      //   status: null
+      // }
     };
     this.storyFlags = {
       // "TALKED_TO_ERIO": true,

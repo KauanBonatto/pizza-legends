@@ -107,13 +107,21 @@ class Overworld {
     this.progress.startingHeroDirection = this.map.gameObjects.hero.direction;
   }
 
-  init() {
+  async init() {
+    const container = document.querySelector(".game-container");
+
     this.progress = new Progress();
+
+    // Show the title screen
+    this.titleScreen = new TitleScreen({
+      progress: this.progress
+    });
+
+    const useSaveFile = await this.titleScreen.init(container);
 
     // Check to load saved data
     let initialHeroState = null;
-    const saveFile = this.progress.getSaveFile();
-    if (saveFile) {
+    if (useSaveFile) {
       this.progress.load();
       initialHeroState = {
         x: this.progress.startingHeroX,
@@ -123,7 +131,7 @@ class Overworld {
     }
 
     this.hud = new Hud();
-    this.hud.init(document.querySelector(".game-container"));
+    this.hud.init(container);
 
     this.startMap(window.OverworldMaps[this.progress.mapId], initialHeroState);
 
@@ -134,11 +142,5 @@ class Overworld {
     this.directionInput.init();
 
     this.startGameLoop();
-
-    // this.map.startCutscene([
-    //   { type: "battle", enemyId: "beth" }
-    //   // { type: "changeMap", map: "DemoRoom" },
-    //   // { type: "textMessage", text: "This is the very first message!" },
-    // ]);
   }
 }
