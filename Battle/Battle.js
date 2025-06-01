@@ -1,51 +1,11 @@
 class Battle {
-  constructor({ enemy, onComplete }) {
+  constructor({ enemy, onComplete, arena }) {
 
     this.enemy = enemy;
     this.onComplete = onComplete;
+    this.arena = arena;
 
-    this.combatants = {
-      // "player1": new Combatant({
-      //   ...Pizzas.s001,
-      //   team: "player",
-      //   hp: 30,
-      //   maxHp: 50,
-      //   xp: 95,
-      //   maxXp: 100,
-      //   level: 1,
-      //   status: { type: "saucy" },
-      //   isPlayerControlled: true
-      // }, this),
-      // "player2": new Combatant({
-      //   ...Pizzas.s002,
-      //   team: "player",
-      //   hp: 30,
-      //   maxHp: 50,
-      //   xp: 75,
-      //   maxXp: 100,
-      //   level: 1,
-      //   status: null,
-      //   isPlayerControlled: true
-      // }, this),
-      // "enemy1": new Combatant({
-      //   ...Pizzas.v001,
-      //   team: "enemy",
-      //   hp: 1,
-      //   maxHp: 50,
-      //   xp: 20,
-      //   maxXp: 100,
-      //   level: 1
-      // }, this),
-      // "enemy2": new Combatant({
-      //   ...Pizzas.f001,
-      //   team: "enemy",
-      //   hp: 25,
-      //   maxHp: 50,
-      //   xp: 30,
-      //   maxXp: 100,
-      //   level: 1
-      // }, this),
-    }
+    this.combatants = {};
 
     this.activeCombatants = {
       player: null,
@@ -60,16 +20,19 @@ class Battle {
       this.addCombatant("e_"+key, "enemy", this.enemy.pizzas[key]);
     })
 
-    this.items = [];
 
+    // Start empty
+    this.items = []
+
+    // Add in player items
     window.playerState.items.forEach(item => {
       this.items.push({
         ...item,
         team: "player"
-      })
+      });
     });
 
-    this.useInstanceIds = {};
+    this.usedInstanceIds = {};
   }
 
   addCombatant(id, team, config) {
@@ -80,19 +43,26 @@ class Battle {
       isPlayerControlled: team === "player"
     }, this);
 
-    this.activeCombatants[team] = this.activeCombatants[team] || id;
+    // Populate first active combatant
+    this.activeCombatants[team] = this.activeCombatants[team] || id
   }
 
   createElement() {
     this.element = document.createElement("div");
     this.element.classList.add("Battle");
+
+    // If provided, add a CSS class for setting the arena background
+    if (this.arena) {
+      this.element.classList.add(this.arena);
+    }
+
     this.element.innerHTML = (`
-    <div class="Battle_hero">
-      <img src="${'/images/characters/people/hero.png'}" alt="Hero" />
-    </div>
-    <div class="Battle_enemy">
-      <img src="${this.enemy.src}" alt="${this.enemy.name}" />
-    </div>
+      <div class="Battle_hero">
+        <img src="${'/images/characters/people/hero.png'}" alt="Hero" />
+      </div>
+      <div class="Battle_enemy">
+        <img src=${this.enemy.src} alt=${this.enemy.name} />
+      </div>
     `);
   }
 
@@ -107,7 +77,8 @@ class Battle {
       let combatant = this.combatants[key];
       combatant.id = key;
       combatant.init(this.element);
-
+      
+      // Add to correct team
       if (combatant.team === "player") {
         this.playerTeam.combatants.push(combatant);
       } else if (combatant.team === "enemy") {
@@ -140,10 +111,12 @@ class Battle {
             }
           });
 
+          // Get rid of player used items
           playerState.items = playerState.items.filter(item => {
-            return !this.useInstanceIds[item.instanceId];
+            return !this.usedInstanceIds[item.instanceId];
           });
 
+          // Send signal to update
           utils.emitEvent("PlayerStateUpdated");
         }
 

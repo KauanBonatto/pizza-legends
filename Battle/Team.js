@@ -26,15 +26,16 @@ class Team {
           <path class="dead-pizza" stroke="#9b917f" d="M2 1h3M1 2h1M5 2h1" />
           <path class="dead-pizza" stroke="#c4bdae" d="M3 2h1M1 3h2M4 3h2M1 4h1M3 4h1M5 4h1M2 5h3" />
         </svg> 
-      `)
-      //Add to parent element
-      this.element.appendChild(icon)
+      `);
+
+      // Add to parent element
+      this.element.appendChild(icon);
     })
   }
 
   update() {
     this.combatants.forEach(c => {
-      const icon = this.element.querySelector(`[data-combatant="${c.id}"]`)
+      const icon = this.element.querySelector(`[data-combatant="${c.id}"]`);
       icon.setAttribute("data-dead", c.hp <= 0 );
       icon.setAttribute("data-active", c.isActive );
     })

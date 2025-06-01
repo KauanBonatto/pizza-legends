@@ -9,27 +9,10 @@ class PlayerState {
         maxXp: 100,
         level: 1,
         status: null
-      },
-      // "p2": {
-      //   pizzaId: "v001",
-      //   hp: 50,
-      //   maxHp: 50,
-      //   xp: 75,
-      //   maxXp: 100,
-      //   level: 1,
-      //   status: null
-      // },
-      // "p3": {
-      //   pizzaId: "f001",
-      //   hp: 50,
-      //   maxHp: 50,
-      //   xp: 75,
-      //   maxXp: 100,
-      //   level: 1,
-      //   status: null
-      // }
+      }
     };
     this.storyFlags = {
+      // Examples:
       // "TALKED_TO_ERIO": true,
       // "USED_PIZZA_STONE": true
     };

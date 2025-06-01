@@ -10,10 +10,10 @@ class KeyboardMenu {
   setOptions(options) {
     this.options = options;
     this.element.innerHTML = this.options.map((option, index) => {
-      const disableAttr = option.disabled ? "disabled" : "";
+      const disabledAttr = option.disabled ? "disabled" : "";
       return (`
         <div class="option">
-          <button ${disableAttr} data-button="${index}" data-description="${option.description}">
+          <button ${disabledAttr} data-button="${index}" data-description="${option.description}">
             ${option.label}
           </button>
           <span class="right">${option.right ? option.right() : ""}</span>
@@ -40,24 +40,25 @@ class KeyboardMenu {
     setTimeout(() => {
       this.element.querySelector("button[data-button]:not([disabled])").focus();
     }, 10);
-
-
   }
 
   createElement() {
     this.element = document.createElement("div");
     this.element.classList.add("KeyboardMenu");
 
+    // Description box element
     this.descriptionElement = document.createElement("div");
     this.descriptionElement.classList.add("DescriptionBox");
-    this.descriptionElement.innerHTML = (`<p>I will provide information</p>`);
+    this.descriptionElement.innerHTML = (`<p>I will provide information!</p>`);
     this.descriptionElementText = this.descriptionElement.querySelector("p");
   }
 
   end() {
+    // Remove menu element and description element
     this.element.remove();
     this.descriptionElement.remove();
 
+    // Clean up bindings
     this.up.unbind();
     this.down.unbind();
   }

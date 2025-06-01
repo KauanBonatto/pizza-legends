@@ -23,6 +23,10 @@ class Progress {
   }
 
   getSaveFile() {
+    if (!window.localStorage) {
+      return null;
+    }
+
     const file = window.localStorage.getItem(this.saveFileKey);
     return file ? JSON.parse(file) : null;
   }

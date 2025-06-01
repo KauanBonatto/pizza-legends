@@ -17,14 +17,22 @@ window.Pizzas = {
   },
   "s002": {
     name: "Bacon Brigade",
-    description: "A salty warrior who fear nothing",
+    description: "A salty warrior who fears nothing",
     type: PizzaTypes.spicy,
     src: "/images/characters/pizzas/s002.png",
     icon: "/images/icons/spicy.png",
     actions: ["damage1", "saucyStatus", "clumsyStatus"]
   },
   "v001": {
-    name: "Call me Kale",
+    name: "Call Me Kale",
+    description: "Pizza desc here",
+    type: PizzaTypes.veggie,
+    src: "/images/characters/pizzas/v001.png",
+    icon: "/images/icons/veggie.png",
+    actions: ["damage1"]
+  },
+  "v002": {
+    name: "Archie Artichoke",
     description: "Pizza desc here",
     type: PizzaTypes.veggie,
     src: "/images/characters/pizzas/v001.png",
@@ -39,4 +47,12 @@ window.Pizzas = {
     icon: "/images/icons/fungi.png",
     actions: ["damage1"]
   },
+  "f002": {
+    name: "Say Shitake",
+    description: "Pizza desc here",
+    type: PizzaTypes.fungi,
+    src: "/images/characters/pizzas/f001.png",
+    icon: "/images/icons/fungi.png",
+    actions: ["damage1"]
+  }
 }

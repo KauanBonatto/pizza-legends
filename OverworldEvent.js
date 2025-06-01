@@ -1,11 +1,12 @@
 class OverworldEvent {
-  constructor({map, event }) {
+  constructor({ map, event }) {
     this.map = map;
     this.event = event;
   }
 
   stand(resolve) {
     const who = this.map.gameObjects[this.event.who];
+
     who.startBehavior({
       map: this.map
     }, {
@@ -14,7 +15,7 @@ class OverworldEvent {
       time: this.event.time
     });
 
-    // Set up a handler to complete when correct person is done stand, then resolve the event
+    // Set up a handler to complete when correct person is done walking, then resolve the event
     const completeHandler = e => {
       if (e.detail.whoId === this.event.who) {
         document.removeEventListener("PersonStandComplete", completeHandler);
@@ -27,6 +28,7 @@ class OverworldEvent {
 
   walk(resolve) {
     const who = this.map.gameObjects[this.event.who];
+
     who.startBehavior({
       map: this.map
     }, {
@@ -57,10 +59,11 @@ class OverworldEvent {
       onComplete: () => resolve()
     });
 
-    message.init(document.querySelector('.game-container'));
+    message.init(document.querySelector(".game-container"));
   }
 
   changeMap(resolve) {
+    // Stop all Person things
     Object.values(this.map.gameObjects).forEach(obj => {
       obj.isMounted = false;
     })
@@ -72,8 +75,8 @@ class OverworldEvent {
         y: this.event.y,
         direction: this.event.direction
       });
-      resolve();
 
+      resolve();
       sceneTransition.fadeOut();
     });
   }
@@ -81,7 +84,8 @@ class OverworldEvent {
   battle(resolve) {
     const sceneTransition = new SceneTransition();
     const battle = new Battle({
-      enemy: Enemies[this.event.enemyId], 
+      enemy: Enemies[this.event.enemyId],
+      arena: this.event.arena || null,
       onComplete: (didWin) => {
         resolve(didWin ? "WON_BATTLE" : "LOST_BATTLE");
       }
@@ -118,14 +122,14 @@ class OverworldEvent {
       onComplete: () => {
         resolve();
       }
-    })
-    
+    });
+
     menu.init(document.querySelector(".game-container"));
   }
 
   init() {
     return new Promise(resolve => {
-      this[this.event.type](resolve)
+      this[this.event.type](resolve);
     });
   }
 }

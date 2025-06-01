@@ -68,10 +68,6 @@ class BattleEvent {
   submissionMenu(resolve) {
     const { caster } = this.event;
 
-    console.log(this.battle.combatants, Object.values(this.battle.combatants).filter(c => {
-      return c.id !== caster.id && c.team === caster.team && c.hp > 0
-    }));
-
     const menu = new SubmissionMenu({
       caster: this.event.caster,
       enemy: this.event.enemy,

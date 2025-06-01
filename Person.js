@@ -5,7 +5,7 @@ class Person extends GameObject {
     this.movingProgressRemaining = 0;
     this.isStanding = false;
     this.intentPosition = null;
-    
+
     this.isPlayerControlled = config.isPlayerControlled || false;
 
     this.directionUpdate = {
@@ -13,16 +13,16 @@ class Person extends GameObject {
       "down": ["y", 1],
       "left": ["x", -1],
       "right": ["x", 1],
-    }
+    };
+
+    this.standBehaviorTimeout;
   }
 
   update(state) {
     if (this.movingProgressRemaining > 0) {
       this.updatePosition();
     } else {
-      // Case: More cases to start walking
-
-      // Case: We are keyboard ready and have arrow pressed
+      // We're keyboard ready and have an arrow pressed
       if (!state.map.isCutscenePlaying && this.isPlayerControlled && state.arrow) {
         this.startBehavior(state, {
           type: "walk",
@@ -43,9 +43,8 @@ class Person extends GameObject {
     this.direction = behavior.direction;
 
     if (behavior.type === "walk") {
-      // Stop if space is not free
+      // Stop here if space is not free
       if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
-
         behavior.retry && setTimeout(() => {
           this.startBehavior(state, behavior);
         }, 10);
@@ -53,10 +52,10 @@ class Person extends GameObject {
         return;
       }
 
-      // Walk!
+      // Ready to walk!
       this.movingProgressRemaining = 16;
 
-      // Add next position intent
+      // Add next position
       const intentPosition = utils.nextPosition(this.x, this.y, this.direction);
       this.intentPosition = [
         intentPosition.x,
@@ -68,7 +67,7 @@ class Person extends GameObject {
 
     if (behavior.type === "stand") {
       this.isStanding = true;
-      setTimeout(() => {
+      this.standBehaviorTimeout = setTimeout(() => {
         utils.emitEvent("PersonStandComplete", {
           whoId: this.id
         });
@@ -85,14 +84,14 @@ class Person extends GameObject {
 
     if (this.movingProgressRemaining === 0) {
       this.intentPosition = null;
-      utils.emitEvent("PersonWalkingComplete", { 
-        whoId: this.id 
+      // We finished the walk!
+      utils.emitEvent("PersonWalkingComplete", {
+        whoId: this.id
       });
     }
   }
 
-  updateSprite(state) {
-
+  updateSprite() {
     if (this.movingProgressRemaining > 0) {
       this.sprite.setAnimation("walk-"+this.direction);
       return;
